@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package go.micro.srv.consignment;
+
+// 定义货轮服务
+service ShippingService {
+    // 托运一批货物
+    rpc CreateConsignment(Consignment) returns (Response) {}
+
+    // 查看货物信息
+    // Created a new method
+    rpc GetConsignments(GetRequest) returns (Response) {}
+}
+
+// 货物信息
+message Consignment {
+    string id = 1;                     // ID
+    string description = 2;            // 描述
+    int32 weight = 3;                  // 重量
+    repeated Container containers = 4; // 集装箱
+    string vessel_id = 5;              // 承运货轮ID
+}
+
+// 集装箱
+message Container {
+    string id = 1;          // ID
+    string customer_id = 2; // 客户ID
+    string origin = 3;      // 出发地
+    string user_id = 4;     // 集装箱所属用户ID
+}
+
+// 托运结果
+message Response {
+    bool created = 1;                      // 托运结果
+    Consignment consignment = 2;           // 新托运的货物
+
+    // Added a pluralised consignment to our generic response message
+    repeated Consignment consignments = 3; // 所有托运的货物
+}
+
+// Created a blank GetRequest
+message GetRequest {}

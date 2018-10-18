@@ -3,7 +3,7 @@ build:
     # Linux环境中直接部署时无需执行该语句，因为consignment.pb.go已经存在
     # protoc -I. --go_out=plugins=micro:$GOPATH/src/consignment-service proto/consignment/consignment.proto
 
-	GOOS=linux GOARCH=amd64 go build
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
 	docker build -t consignment-service .
 
 run:

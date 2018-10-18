@@ -3,7 +3,7 @@ build:
     # Linux环境中直接部署时无需执行该语句，因为vessel.pb.go已经存在
     # protoc -I. --go_out=plugins=micro:$GOPATH/src/vessel-service proto/vessel/vessel.proto
 
-	GOOS=linux GOARCH=amd64 go build
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
 	docker build -t vessel-service .
 
 run:
